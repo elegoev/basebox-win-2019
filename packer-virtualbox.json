@@ -18,7 +18,7 @@
   "builders": [
     {
       "type": "vagrant",
-      "communicator": "ssh",
+      "communicator": "winrm",
       "source_path": "{{user `src_image_name`}}",
       "box_version": "{{user `src_image_version`}}",
       "output_dir": "packer_build_dir",
@@ -36,7 +36,7 @@
     },
     {
       "type": "shell",
-      "script": "./packer/provisioners/base-provisioning.sh"
+      "script": "./packer/provisioners/base-provisioning.ps1"
     },
     {
       "type": "inspec",
