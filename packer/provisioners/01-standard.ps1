@@ -24,7 +24,8 @@ Write-Host -ForegroundColor Blue "################################"
 # get windows version
 $application_file_path="/vagrant/installed-application.md"
 $WINVER = [System.Environment]::OSVersion.Version
-Write-Host "# Installed application   "  > $application_file_path
-Write-Host "***                       " >> $application_file_path
-Write-Host "> $WINVER                 " >> $application_file_path
+Remove-Item $application_file_path
+Set-Content -Path $application_file_path -Value "# Installed application"
+Add-Content -Path $application_file_path -Value "***"
+Add-Content -Path $application_file_path -Value "> Windows $WINVER"
 
