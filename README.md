@@ -1,4 +1,3 @@
 # basebox-win-20197
 
-Vagrant Ubuntu 18 Basebox
-
+Vagrant Win 2019 Basebox
