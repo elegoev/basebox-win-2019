@@ -1,0 +1,10 @@
+.DS_Store
+**/.vagrant/*
+version
+deploy2*.ps1
+*.log
+*.lock
+packer_build_dir/
+rspec_html_reports/
+
+
