@@ -20,17 +20,6 @@
   ],
   "post-processors": [
     {
-      "type": "artifice",
-      "files": ["./vagrant_build_dir/package.box"]
-    },
-    {
-      "type": "shell-local",
-      "environment_vars": ["IMAGE_NAME={{user `image_name`}}"],
-      "execute_command": ["powershell.exe", "{{.Vars}} {{.Script}}"],
-      "env_var_format": "$env:%s=\"%s\"; ",
-      "script": "./packer/post-processors/vagrant-cloud-create-box.ps1"  
-    },
-    {
       "type": "shell-local",
       "environment_vars": ["IMAGE_VERSION={{user `image_version`}}"],
       "execute_command": ["powershell.exe", "{{.Vars}} {{.Script}}"],
@@ -38,11 +27,11 @@
       "script": "./packer/post-processors/create-git-tag.ps1"  
     },
     {
-      "type": "vagrant-cloud",
-      "box_tag": "elegoev/{{user `image_name`}}",
-      "version": "{{user `image_version`}}",
-      "version_description": "***\n[[github info]]({{user `github_repo_version`}})[[application]]({{user `application_info`}})[[basebox {{user `src_image_name`}}]]({{user `vagrantcloud_base_image`}})",
-      "access_token": "{{user `cloud_token`}}"
+      "type": "shell-local",
+      "environment_vars": ["IMAGE_NAME={{user `image_name`}}"],
+      "execute_command": ["powershell.exe", "{{.Vars}} {{.Script}}"],
+      "env_var_format": "$env:%s=\"%s\"; ",
+      "script": "./packer/post-processors/vagrant-cloud-publish-box.ps1"  
     },
     {
       "type": "shell-local",
