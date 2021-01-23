@@ -7,9 +7,10 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
 
   # set vagrant image name
   $BOX_NAME = $env:IMAGE_NAME
-  $BOX_VERSION = "1.0"
+  $BOX_VERSION = "1.0.0"
   $DESCRIPTION = "Beschreibung"
   $VERSIONDESCRIPTION = "Version Beschreibung"
+  $BOXFILE = "./vagrant_build_dir/package.box"
 
   # show used token
   # Write-Host "token = $env:PACKER_VAGRANTCLOUD_TOKEN"
@@ -26,7 +27,7 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
     vagrant cloud box create --no-private "elegoev/$BOX_NAME"
 
     # publish box
-    vagrant cloud publish "elegoev/$BOX_NAME" "$BOX_VERSION" "virtualbox"
+    vagrant cloud publish "elegoev/$BOX_NAME" "$BOX_VERSION" "virtualbox" $BOXFILE
 
   } else {
     Write-Host "Wrong vagrant cloud token configured" -ForegroundColor Red
