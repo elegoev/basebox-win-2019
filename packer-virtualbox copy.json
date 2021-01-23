@@ -5,24 +5,47 @@
     "image_name": "win-2019",
     "image_version": "1.0.{{timestamp}}",
     "cloud_token": "{{ env `PACKER_VAGRANTCLOUD_TOKEN` }}",
+    "inspec_profile": "baseline-win-2019",
+    "inspec_report": "/inspec/inspec_html_report/baseline-win-2019_report.html",
+    "inspec_cis_report": "/inspec/inspec_html_report/baseline-win-2019_cis_report.html",
     "github_repo": "https://github.com/elegoev/basebox-win-2019",
     "github_repo_version": "{{user `github_repo`}}/tree/{{user `image_version`}}",
+    "github_inspec_report": "{{user `github_repo`}}/blob/{{user `image_version`}}{{user `inspec_report`}}",
+    "vagrant_template": "./packer/files-prov/template/Vagrantfile",
     "vagrantcloud_base_image": "https://app.vagrantup.com/elegoev/boxes/win-2019/versions/{{user `src_image_version`}}",
-    "vagrant_box_file": "./vagrant_build_dir/package.box",
     "application_info": "https://github.com/elegoev/basebox-win-2019/blob/{{user `image_version`}}/installed-application.md"
   },
   "builders": [
     {
+      "type": "vagrant",
+      "communicator": "winrm",
+      "source_path": "{{user `src_image_name`}}",
+      "box_version": "{{user `src_image_version`}}",
+      "output_dir": "packer_build_dir",
+      "template": "{{user `vagrant_template`}}",
+      "box_name": "basebox-{{user `image_name`}}",
+      "provider": "virtualbox",
+      "add_force": true
+    }
+  ],
+  "provisioners": [
+    {
       "type": "file",
-      "source": "./vagrant_build_dir/installed-application.md",
-      "target": "./installed-application.md"    
+      "source": "./packer/files-prov",
+      "destination": "/home/vagrant/files-prov"
+    },
+    {
+      "type": "shell",
+      "script": "./packer/provisioners/base-provisioning.ps1"
+    },
+    {
+      "type": "inspec",
+      "inspec_env_vars": [ "CHEF_LICENSE=accept"],
+      "extra_arguments": [ "--reporter", "cli", "html2:.{{user `inspec_report`}}" ],
+      "profile": "./inspec/{{user `inspec_profile`}}"
     }
   ],
   "post-processors": [
-    {
-      "type": "artifice",
-      "files": ["./vagrant_build_dir/package.box"]
-    },
     {
       "type": "shell-local",
       "environment_vars": ["IMAGE_NAME={{user `image_name`}}"],
@@ -41,7 +64,7 @@
       "type": "vagrant-cloud",
       "box_tag": "elegoev/{{user `image_name`}}",
       "version": "{{user `image_version`}}",
-      "version_description": "***\n[[github info]]({{user `github_repo_version`}})[[application]]({{user `application_info`}})[[basebox {{user `src_image_name`}}]]({{user `vagrantcloud_base_image`}})",
+      "version_description": "***\n[[github info]]({{user `github_repo_version`}})[[inspec report]](https://htmlpreview.github.io/?{{user `github_inspec_report`}})[[application]]({{user `application_info`}})[[basebox {{user `src_image_name`}}]]({{user `vagrantcloud_base_image`}})",
       "access_token": "{{user `cloud_token`}}"
     },
     {

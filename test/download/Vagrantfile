@@ -1,14 +1,14 @@
 
 Vagrant.configure("2") do |config|
 
-    $basebox_name="elegoev-win-2019-test"
-    $basebox_hostname="win-2019-test"
-    $src_image_name="elegoev/win-2019"
-    $vb_group_name="basebox-win-2019-test"
+    $basebox_name="elegoev-ubuntu-18.04-jenkins-test"
+    $basebox_hostname="ubuntu-1804-jenkins-test"
+    $src_image_name="elegoev/ubuntu-18.04-jenkins"
+    $vb_group_name="basebox-jenkins-test"
 
     config.vm.define "#{$basebox_name}" do |machine|
       machine.vm.box = "#{$src_image_name}"
-      machine.vm.box_version = "3.0.1611243045"
+      machine.vm.box_version = "1.0.1611417067"
     
       # define guest hostname
       machine.vm.hostname = "#{$basebox_hostname}"

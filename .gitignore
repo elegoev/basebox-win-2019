@@ -6,5 +6,5 @@ deploy2*.ps1
 *.lock
 packer_build_dir/
 rspec_html_reports/
-
+**/vagrant_build_dir/
 

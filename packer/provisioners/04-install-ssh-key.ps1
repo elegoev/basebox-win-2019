@@ -6,7 +6,7 @@ Write-Host -ForegroundColor Blue "################################"
 Write-Host -ForegroundColor Green "################################"
 Write-Host -ForegroundColor Green "# >>>> create ssh key           "
 Write-Host -ForegroundColor Green "################################"
-Copy-Item C:\Vagrant\files\ssh\administrators_authorized_keys C:\ProgramData\ssh\administrators_authorized_keys
+Copy-Item C:\Vagrant\administrators_authorized_keys C:\ProgramData\ssh\administrators_authorized_keys
 
 # set permisssion
 Write-Host -ForegroundColor Green "################################"
