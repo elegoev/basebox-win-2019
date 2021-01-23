@@ -6,8 +6,8 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
 } else {
 
   # set vagrant image name
-  $IMAGE_NAME = $env:IMAGE_NAME
-  $IMAGE_VERSION = "test-001"
+  $BOX_NAME = $env:IMAGE_NAME
+  $BOX_VERSION = "1.0"
   $DESCRIPTION = "Beschreibung"
   $VERSIONDESCRIPTION = "Version Beschreibung"
 
@@ -20,16 +20,13 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
     
     # check cloud image
     # vagrant cloud search $IMAGE_NAME --short | Select-String -Pattern 'elegoev/ubuntu-18.04'
-    Write-Host "image name = $IMAGE_NAME"
+    Write-Host "image name = $BOX_NAME"
 
     # create box
-    vagrant cloud box create --no-private "elegoev/$IMAGE_NAME"
+    vagrant cloud box create --no-private "elegoev/$BOX_NAME"
 
     # publish box
-    vagrant cloud publish --box-version $IMAGE_VERSION `
-                          --description $DESCRIPTION `
-                          --version-description $VERSIONDESCRIPTION `
-                          elegoev/$IMAGE_NAME $IMAGE_VERSION virtualbox
+    vagrant cloud publish "elegoev/$BOX_NAME" "$BOX_VERSION" "virtualbox"
 
   } else {
     Write-Host "Wrong vagrant cloud token configured" -ForegroundColor Red
