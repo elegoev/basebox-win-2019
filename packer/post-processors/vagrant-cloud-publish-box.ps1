@@ -27,7 +27,7 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
     vagrant cloud box create --no-private "elegoev/$BOX_NAME"
 
     # publish box
-    vagrant cloud publish "elegoev/$BOX_NAME" "$BOX_VERSION" "virtualbox" $BOXFILE `
+    vagrant cloud publish "elegoev/win-2019" "1.0.0" virtualbox ./vagrant_build_dir/vb-win2019-1.0.0.box `
       --description "description" `
       --short-description "short description" `
       --release `
