@@ -32,6 +32,7 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
       --short-description "short description" `
       --release `
       --version-description "version-description" `
+      --debug `
       --force
 
   } else {
