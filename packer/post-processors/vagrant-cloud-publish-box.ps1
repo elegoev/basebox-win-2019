@@ -27,7 +27,12 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
     vagrant cloud box create --no-private "elegoev/$BOX_NAME"
 
     # publish box
-    vagrant cloud publish --force "elegoev/$BOX_NAME" "$BOX_VERSION" "virtualbox" $BOXFILE
+    vagrant cloud publish "elegoev/$BOX_NAME" "$BOX_VERSION" "virtualbox" $BOXFILE `
+      --description "description" `
+      --short-description "short description" `
+      --release `
+      --version-description "version-description" `
+      --force
 
   } else {
     Write-Host "Wrong vagrant cloud token configured" -ForegroundColor Red
