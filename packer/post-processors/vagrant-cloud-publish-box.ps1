@@ -12,7 +12,7 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
   $BOX_PROVIDER = "virtualbox"
   $BOX_FILE = "./vagrant_build_dir/package.box"
   $BOX_DESCRIPTION = "Beschreibung"
-  $BOX_SHORTDESCRIPTION = ""
+  $BOX_SHORTDESCRIPTION = "Shortdescription"
   $BOX_VERSIONDESCRIPTION = "Version Beschreibung"
 
   # show used token
