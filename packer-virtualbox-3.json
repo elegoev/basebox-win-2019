@@ -1,0 +1,34 @@
+{
+  "variables": {
+    "src_image_name": "StefanScherer/windows_2019",
+    "src_image_version": "2020.09.22",
+    "image_name": "win-2019",
+    "image_version": "1.0.{{timestamp}}",
+    "cloud_token": "{{ env `PACKER_VAGRANTCLOUD_TOKEN` }}",
+    "inspec_profile": "baseline-win-2019",
+    "inspec_report": "/inspec/inspec_html_report/baseline-win-2019_report.html",
+    "inspec_cis_report": "/inspec/inspec_html_report/baseline-win-2019_cis_report.html",
+    "github_repo": "https://github.com/elegoev/basebox-win-2019",
+    "github_repo_version": "{{user `github_repo`}}/tree/{{user `image_version`}}",
+    "github_inspec_report": "{{user `github_repo`}}/blob/{{user `image_version`}}{{user `inspec_report`}}",
+    "vagrant_template": "./packer/files-prov/template/Vagrantfile",
+    "vagrantcloud_base_image": "https://app.vagrantup.com/elegoev/boxes/win-2019/versions/{{user `src_image_version`}}",
+    "application_info": "https://github.com/elegoev/basebox-win-2019/blob/{{user `image_version`}}/installed-application.md"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-vm",
+      "communicator": "winrm",
+      "headless": "{{user `headless`}}",
+      "winrm_username": "vagrant",
+      "winrm_password": "vagrant",
+      "vm_name": "basebox-win-2019"
+    }
+  ],
+  "error-cleanup-provisioner": {
+    "type": "shell-local",
+    "execute_command": ["powershell.exe", "{{.Vars}} {{.Script}}"],
+    "env_var_format": "$env:%s=\"%s\"; ",
+    "script": "./packer/error-cleanup-provisioner.ps1"  
+  }
+}
