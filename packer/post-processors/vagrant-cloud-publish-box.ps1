@@ -57,11 +57,10 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
                           https://$VAGRANT_HOSTNAME/api/v1/box/$BOX_NAMESPACE/$BOX_NAME/version/$BOX_VERSION/provider/$BOX_PROVIDER/upload
 
     # upload box
-    Write-Host ">>>>> upload url = ($CURL_RESPONSE).upload_path"
     $UPLOADURL = $CURL_RESPONSE | jq -r '.upload_path'
     Write-Host ">>>>> upload url = $UPLOADURL"
     Write-Host ">>>>> upload file" 
-    curl $UPLOADURL -# --request PUT --upload-file $BOX_FILE 
+    curl $UPLOADURL --request PUT --upload-file $BOX_FILE 
  
     # release box
     Write-Host ">>>>> release upload"

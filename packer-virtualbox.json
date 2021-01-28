@@ -10,9 +10,6 @@
     "box_version": "{{user `image_version`}}",
     "box_provider": "virtualbox",
     "box_file": "./vagrant_build_dir/package_test.box",
-    "box_description": "Beschreibung",
-    "box_shortdescription": "Shortdescription",
-    "box_versiondescription": "Version Beschreibung",
     "vagrant_hostname": "app.vagrantup.com",
     "vagrantcloud_base_image": "https://{{user `vagrant_hostname`}}/StefanScherer/boxes/windows_2019/versions/{{user `src_image_version`}}",
     "vagrant_box_file": "./vagrant_build_dir/package_test.box",
@@ -20,7 +17,12 @@
     "cloud_token": "{{ env `PACKER_VAGRANTCLOUD_TOKEN` }}",
     "github_repo": "https://github.com/{{user `box_namespace`}}/basebox-win-2019",
     "github_repo_version": "{{user `github_repo`}}/tree/{{user `image_version`}}",
-    "application_info": "{{user `github_repo`}}/blob/{{user `image_version`}}/installed-application.md"
+    "application_info": "{{user `github_repo`}}/blob/{{user `image_version`}}/installed-application.md",
+
+    "box_description": "windows 2019 basebox",
+    "box_shortdescription": "vagrant basebox with windows 2019",
+    "box_versiondescription": "*** [[github info]]({{user `github_repo_version`}})[[basebox windows_2019]]({{user `vagrantcloud_base_image`}})"
+
 
   },
   "builders": [
