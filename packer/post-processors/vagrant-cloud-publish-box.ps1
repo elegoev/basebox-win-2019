@@ -1,12 +1,11 @@
-# publish vagrant cloud box
-
 # check vagrant cloud token for packer (PACKER_VAGRANTCLOUD_TOKEN)
+Write-Host "token = $env:PACKER_VAGRANTCLOUD_TOKEN"
 if (-not (Test-Path $env:PACKER_VAGRANTCLOUD_TOKEN)) { 
   Write-Host "Environment variable 'PACKER_VAGRANTCLOUD_TOKEN' not set" -ForegroundColor Red
 } else {
 
   # show used token
-  # Write-Host "token = $env:PACKER_VAGRANTCLOUD_TOKEN"
+  Write-Host "token = $env:PACKER_VAGRANTCLOUD_TOKEN"
 
   # vagrant publish parameter
   $BOX_NAMESPACE = $env:BOX_NAMESPACE
