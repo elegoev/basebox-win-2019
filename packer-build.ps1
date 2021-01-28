@@ -35,7 +35,7 @@ Pop-Location
 Copy-Item "$BUILDDIR/$APPLICATIONFILE" -Destination "."
 
 # run packer for vagrant virtualbox provider
-packer build packer-virtualbox.json 
+# packer build packer-virtualbox.json 
 
 # delete build directory
-Remove-Item "$BUILDDIR" -Recurse
+# Remove-Item "$BUILDDIR" -Recurse

@@ -10,12 +10,6 @@ $LOCAL = "de-ch"
 # check language file
 if (Test-Path "$LANGUAGEFILE") {
 
-  # install language
-  Write-Host -ForegroundColor Blue "###################################"
-  Write-Host -ForegroundColor Blue "# >>>> install language pack       "
-  Write-Host -ForegroundColor Blue "###################################"
-  DISM /Online /Add-Package /Quiet /NoRestart /PackagePath:C:\files-prov\language\Microsoft-Windows-Server-Language-Pack_x64_de-de.cab 
-
   # set primary language
   Write-Host -ForegroundColor Blue "###################################"
   Write-Host -ForegroundColor Blue "# >>>> set primary language        "

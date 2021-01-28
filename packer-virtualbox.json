@@ -4,12 +4,24 @@
     "src_image_version": "2020.09.22",
     "image_name": "win-2019",
     "image_version": "1.0.{{timestamp}}",
+
+    "box_namespace": "elegoev",
+    "box_name": "{{user `image_name`}}",
+    "box_version": "1.0.0",
+    "box_provider": "virtualbox",
+    "box_file": "./vagrant_build_dir/package.box",
+    "box_description": "Beschreibung",
+    "box_shortdescription": "Shortdescription",
+    "box_versiondescription": "Version Beschreibung",
+    "vagrant_hostname": "app.vagrantup.com",
+    "vagrantcloud_base_image": "https://{{user `vagrant_hostname`}}/StefanScherer/boxes/windows_2019/versions/{{user `src_image_version`}}",
+    "vagrant_box_file": "./vagrant_build_dir/package_test.box",
+
     "cloud_token": "{{ env `PACKER_VAGRANTCLOUD_TOKEN` }}",
-    "github_repo": "https://github.com/elegoev/basebox-win-2019",
+    "github_repo": "https://github.com/{{user `box_namespace`}}/basebox-win-2019",
     "github_repo_version": "{{user `github_repo`}}/tree/{{user `image_version`}}",
-    "vagrantcloud_base_image": "https://app.vagrantup.com/elegoev/boxes/win-2019/versions/{{user `src_image_version`}}",
-    "vagrant_box_file": "./vagrant_build_dir/package.box",
-    "application_info": "https://github.com/elegoev/basebox-win-2019/blob/{{user `image_version`}}/installed-application.md"
+    "application_info": "{{user `github_repo`}}/blob/{{user `image_version`}}/installed-application.md"
+
   },
   "builders": [
     {
@@ -28,7 +40,18 @@
     },
     {
       "type": "shell-local",
-      "environment_vars": ["IMAGE_NAME={{user `image_name`}}"],
+      "environment_vars": [
+                            "IMAGE_NAME={{user `image_name`}}",
+                            "BOX_NAMESPACE={{user `box_namespace`}}",
+                            "BOX_NAME={{user `box_name`}}",
+                            "BOX_VERSION={{user `box_version`}}",
+                            "BOX_PROVIDER={{user `box_provider`}}",
+                            "BOX_FILE={{user `box_file`}}",
+                            "BOX_DESCRIPTION={{user `box_description`}}",
+                            "BOX_SHORTDESCRIPTION={{user `box_shortdescription`}}",
+                            "BOX_VERSIONDESCRIPTION={{user `box_versiondescription`}}",
+                            "VAGRANT_HOSTNAME={{user `vagrant_hostname`}}"
+                          ],
       "execute_command": ["powershell.exe", "{{.Vars}} {{.Script}}"],
       "env_var_format": "$env:%s=\"%s\"; ",
       "script": "./packer/post-processors/vagrant-cloud-publish-box.ps1"  

@@ -33,6 +33,7 @@ Vagrant.configure("2") do |config|
 
       # define synced directory
       machine.vm.synced_folder "../packer/files-prov", "/file-prov"
+      machine.vm.synced_folder "%ProgramFiles%/Oracle/VirtualBox", "/guestaddition"
 
       # file provisioning
       machine.vm.provision "file", source: "../packer/files-prov", destination: "/Users/vagrant/files-prov"
@@ -47,10 +48,17 @@ Vagrant.configure("2") do |config|
 
       # reboot instance
       config.vm.provision :shell do |shell|
+        shell.name = "vm-reboot"
         shell.privileged = true
         shell.inline = 'echo rebooting ...'
         shell.reboot = true
       end
+
+      # set language german
+      machine.vm.provision :shell do |cfg|
+        cfg.name = "set-language-german"
+        cfg.path = "../packer/post-processors/set-language-german.ps1"
+      end        
 
     end   
 
