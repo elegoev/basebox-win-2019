@@ -9,7 +9,7 @@
     "box_name": "{{user `image_name`}}",
     "box_version": "1.0.0",
     "box_provider": "virtualbox",
-    "box_file": "./vagrant_build_dir/package.box",
+    "box_file": "./vagrant_build_dir/package_test.box",
     "box_description": "Beschreibung",
     "box_shortdescription": "Shortdescription",
     "box_versiondescription": "Version Beschreibung",
