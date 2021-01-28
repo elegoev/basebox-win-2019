@@ -19,15 +19,15 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
   $VAGRANT_HOSTNAME = $env:VAGRANT_HOSTNAME
 
   # show parameter
-  Write-Host "$BOX_NAMESPACE          = $env:BOX_NAMESPACE"
-  Write-Host "$BOX_NAME               = $env:BOX_NAME"
-  Write-Host "$BOX_VERSION            = $env:BOX_VERSION"
-  Write-Host "$BOX_PROVIDER           = $env:BOX_PROVIDER"
-  Write-Host "$BOX_FILE               = $env:BOX_FILE"
-  Write-Host "$BOX_DESCRIPTION        = $env:BOX_DESCRIPTION"
-  Write-Host "$BOX_SHORTDESCRIPTION   = $env:BOX_SHORTDESCRIPTION"
-  Write-Host "$BOX_VERSIONDESCRIPTION = $env:BOX_VERSIONDESCRIPTION"
-  Write-Host "$VAGRANT_HOSTNAME       = $env:VAGRANT_HOSTNAME"
+  Write-Host "BOX_NAMESPACE          = $BOX_NAMESPACE"
+  Write-Host "BOX_NAME               = $BOX_NAME"
+  Write-Host "BOX_VERSION            = $BOX_VERSION"
+  Write-Host "BOX_PROVIDER           = $BOX_PROVIDER"
+  Write-Host "BOX_FILE               = $BOX_FILE"
+  Write-Host "BOX_DESCRIPTION        = $BOX_DESCRIPTION"
+  Write-Host "BOX_SHORTDESCRIPTION   = $BOX_SHORTDESCRIPTION"
+  Write-Host "BOX_VERSIONDESCRIPTION = $BOX_VERSIONDESCRIPTION"
+  Write-Host "VAGRANT_HOSTNAME       = $VAGRANT_HOSTNAME"
 
   # check if login user
   vagrant cloud auth login --token $env:PACKER_VAGRANTCLOUD_TOKEN
@@ -38,24 +38,31 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
     Write-Host "image name = $BOX_NAME"
 
     # create box
+    Write-Host ">>>>> create box"
     vagrant cloud box create --no-private "$BOX_NAMESPACE/$BOX_NAME" `
                              --description "$BOX_DESCRIPTION" `
                              --short-description "$BOX_SHORTDESCRIPTION"
 
     # create version
+    Write-Host ">>>>> create version"
     vagrant cloud version create "$BOX_NAMESPACE/$BOX_NAME" $BOX_VERSION --description "$BOX_VERSIONDESCRIPTION"
 
     # create provider
+    Write-Host ">>>>> create provider"
     vagrant cloud provider create "$BOX_NAMESPACE/$BOX_NAME" $BOX_PROVIDER $BOX_VERSION
 
     # get upload url
+    Write-Host ">>>>> get upload url"
     $CURL_RESPONSE = curl --header "Authorization: Bearer $env:PACKER_VAGRANTCLOUD_TOKEN" `
                           https://$VAGRANT_HOSTNAME/api/v1/box/$BOX_NAMESPACE/$BOX_NAME/version/$BOX_VERSION/provider/$BOX_PROVIDER/upload
 
     # upload box
+    Write-Host ">>>>> upload url = $CURL_RESPONSE.upload_path"
+    Write-Host ">>>>> upload file"    
     curl $CURL_RESPONSE.upload_path -# --request PUT --upload-file $BOX_FILE 
-    
+ 
     # release box
+    Write-Host ">>>>> release upload"
     curl -X PUT --header "Authorization: Bearer $env:PACKER_VAGRANTCLOUD_TOKEN" `
                 https://$VAGRANT_HOSTNAME/api/v1/box/$BOX_NAMESPACE/$BOX_NAME/version/$BOX_VERSION/release
 
