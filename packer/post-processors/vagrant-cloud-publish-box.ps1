@@ -1,6 +1,6 @@
 # check vagrant cloud token for packer (PACKER_VAGRANTCLOUD_TOKEN)
 Write-Host "token = $env:PACKER_VAGRANTCLOUD_TOKEN"
-if (-not (Test-Path $env:PACKER_VAGRANTCLOUD_TOKEN)) { 
+if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) { 
   Write-Host "Environment variable 'PACKER_VAGRANTCLOUD_TOKEN' not set" -ForegroundColor Red
 } else {
 
