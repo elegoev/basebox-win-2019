@@ -7,7 +7,7 @@
 
     "box_namespace": "elegoev",
     "box_name": "{{user `image_name`}}",
-    "box_version": "1.0.0",
+    "box_version": "{{user `image_version`}}",
     "box_provider": "virtualbox",
     "box_file": "./vagrant_build_dir/package_test.box",
     "box_description": "Beschreibung",
