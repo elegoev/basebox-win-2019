@@ -21,8 +21,7 @@
 
     "box_description": "windows 2019 basebox",
     "box_shortdescription": "vagrant basebox with windows 2019",
-    "box_versiondescription": "*** [[github info]]({{user `github_repo_version`}})[[basebox windows_2019]]({{user `vagrantcloud_base_image`}})"
-
+    "box_versiondescription": "***\n[[github info]]({{user `github_repo_version`}})[[application]]({{user `application_info`}})[[basebox windows_2019]]({{user `vagrantcloud_base_image`}})"
 
   },
   "builders": [
