@@ -13,7 +13,7 @@ if (-Not (Test-Path "$env:SYSTEMROOT\Temp\VBoxGuestAdditions.iso")) {
 Write-Host -ForegroundColor Green "##########################################"
 Write-Host -ForegroundColor Green "# >>>> mount guest addition iso           "
 Write-Host -ForegroundColor Green "##########################################"
-$MOUNTRESULT = Mount-DiskImage /guestaddition/VBoxGuestAdditions.iso -PassThru
+$MOUNTRESULT = Mount-DiskImage -ImagePath /guestaddition/VBoxGuestAdditions.iso -PassThru
 $DRIVELETTER = ($MOUNTRESULT | Get-Volume).DriveLetter
 
 Write-Host -ForegroundColor Green "##########################################"

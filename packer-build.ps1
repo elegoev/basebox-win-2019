@@ -1,7 +1,7 @@
 # set variables
 $BUILDDIR = "./vagrant_build_dir"
 $VAGRANTFILETMPL = "./packer/files-prov/template/Vagrantfile"
-$SSHKEY = "./packer/files-prov/ssh/administrators_authorized_keys"
+$SSHKEY = "./packer/files-prov/ssh/insecure_public_key"
 $OUTPUTFILE = "package.box"
 $APPLICATIONFILE = "installed-application.md"
 

@@ -26,5 +26,5 @@ $application_file_path="C:\Vagrant\installed-application.md"
 $WINVER = [System.Environment]::OSVersion.Version
 Set-Content -Path $application_file_path -Value "# Installed application"
 Add-Content -Path $application_file_path -Value "***"
-Add-Content -Path $application_file_path -Value "> Windows $WINVER"
+Add-Content -Path $application_file_path -Value "> Windows $WINVER (Windows 2019)"
 

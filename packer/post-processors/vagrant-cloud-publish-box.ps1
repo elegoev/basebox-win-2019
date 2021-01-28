@@ -5,7 +5,7 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
 } else {
 
   # show used token
-  Write-Host "token = $env:PACKER_VAGRANTCLOUD_TOKEN"
+  # Write-Host "token = $env:PACKER_VAGRANTCLOUD_TOKEN"
 
   # vagrant publish parameter
   $BOX_NAMESPACE = $env:BOX_NAMESPACE
@@ -19,15 +19,15 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
   $VAGRANT_HOSTNAME = $env:VAGRANT_HOSTNAME
 
   # show parameter
-  Write-Host "BOX_NAMESPACE          = $BOX_NAMESPACE"
-  Write-Host "BOX_NAME               = $BOX_NAME"
-  Write-Host "BOX_VERSION            = $BOX_VERSION"
-  Write-Host "BOX_PROVIDER           = $BOX_PROVIDER"
-  Write-Host "BOX_FILE               = $BOX_FILE"
-  Write-Host "BOX_DESCRIPTION        = $BOX_DESCRIPTION"
-  Write-Host "BOX_SHORTDESCRIPTION   = $BOX_SHORTDESCRIPTION"
-  Write-Host "BOX_VERSIONDESCRIPTION = $BOX_VERSIONDESCRIPTION"
-  Write-Host "VAGRANT_HOSTNAME       = $VAGRANT_HOSTNAME"
+  # Write-Host "BOX_NAMESPACE          = $BOX_NAMESPACE"
+  # Write-Host "BOX_NAME               = $BOX_NAME"
+  # Write-Host "BOX_VERSION            = $BOX_VERSION"
+  # Write-Host "BOX_PROVIDER           = $BOX_PROVIDER"
+  # Write-Host "BOX_FILE               = $BOX_FILE"
+  # Write-Host "BOX_DESCRIPTION        = $BOX_DESCRIPTION"
+  # Write-Host "BOX_SHORTDESCRIPTION   = $BOX_SHORTDESCRIPTION"
+  # Write-Host "BOX_VERSIONDESCRIPTION = $BOX_VERSIONDESCRIPTION"
+  # Write-Host "VAGRANT_HOSTNAME       = $VAGRANT_HOSTNAME"
 
   # check if login user
   vagrant cloud auth login --token $env:PACKER_VAGRANTCLOUD_TOKEN
@@ -58,7 +58,7 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
 
     # upload box
     $UPLOADURL = $CURL_RESPONSE | jq -r '.upload_path'
-    Write-Host ">>>>> upload url = $UPLOADURL"
+    # Write-Host ">>>>> upload url = $UPLOADURL"
     Write-Host ">>>>> upload file" 
     curl $UPLOADURL --request PUT --upload-file $BOX_FILE 
  
