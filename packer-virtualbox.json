@@ -9,7 +9,7 @@
     "box_name": "{{user `image_name`}}",
     "box_version": "{{user `image_version`}}",
     "box_provider": "virtualbox",
-    "box_file": "./vagrant_build_dir/package_test.box",
+    "box_file": "./vagrant_build_dir/package.box",
     "vagrant_hostname": "app.vagrantup.com",
     "vagrantcloud_base_image": "https://{{user `vagrant_hostname`}}/StefanScherer/boxes/windows_2019/versions/{{user `src_image_version`}}",
     "vagrant_box_file": "./vagrant_build_dir/package_test.box",
