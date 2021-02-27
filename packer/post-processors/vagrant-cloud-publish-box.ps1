@@ -67,14 +67,6 @@ if (-not (Test-Path env:PACKER_VAGRANTCLOUD_TOKEN)) {
     curl -X PUT --header "Authorization: Bearer $env:PACKER_VAGRANTCLOUD_TOKEN" `
                 https://$VAGRANT_HOSTNAME/api/v1/box/$BOX_NAMESPACE/$BOX_NAME/version/$BOX_VERSION/release
 
-    # # publish box
-    # vagrant cloud publish "$BOX_NAMESPACE/$BOX_NAME" "$BOX_VERSION" $BOX_PROVIDER $BOX_FILE `
-    #   --description "$BOX_DESCRIPTION" `
-    #   --short-description "$BOX_SHORTDESCRIPTION" `
-    #   --release `
-    #   --version-description "$BOX_VERSIONDESCRIPTION" `
-    #   --force
-
   } else {
     Write-Host "Wrong vagrant cloud token configured" -ForegroundColor Red
   }

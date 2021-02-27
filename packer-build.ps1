@@ -41,3 +41,6 @@ Copy-Item "$BUILDDIR/$APPLICATIONFILE" -Destination "."
 
 # run packer for vagrant virtualbox provider
 packer build packer-virtualbox.json 
+
+# delete build directory
+Remove-Item "$BUILDDIR" -Recurse
