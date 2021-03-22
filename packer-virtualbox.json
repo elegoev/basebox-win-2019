@@ -34,6 +34,16 @@
   "post-processors": [
     {
       "type": "shell-local",
+      "environment_vars": [
+        "IMAGE_NAME={{user `image_name`}}",
+        "IMAGE_VERSION={{user `image_version`}}"
+       ],
+      "execute_command": ["powershell.exe", "{{.Vars}} {{.Script}}"],
+      "env_var_format": "$env:%s=\"%s\"; ",
+      "script": "./packer/post-processors/set-environment.ps1"  
+    },
+    {
+      "type": "shell-local",
       "environment_vars": ["IMAGE_VERSION={{user `image_version`}}"],
       "execute_command": ["powershell.exe", "{{.Vars}} {{.Script}}"],
       "env_var_format": "$env:%s=\"%s\"; ",

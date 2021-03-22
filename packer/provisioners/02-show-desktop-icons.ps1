@@ -2,6 +2,10 @@
 ## Show Desktop Icons
 ## ==============================================
 
+Write-Host -ForegroundColor Blue "####################################"
+Write-Host -ForegroundColor Blue "# >>>> start show-desktop-icons.ps1 "
+Write-Host -ForegroundColor Blue "####################################"
+
 $ErrorActionPreference = "SilentlyContinue"
 If ($Error) {$Error.Clear()}
 $RegistryPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
@@ -72,3 +76,7 @@ If (Test-Path $RegistryPath) {
 	}
 }
 If ($Error) {$Error.Clear()}
+
+Write-Host -ForegroundColor Blue "####################################"
+Write-Host -ForegroundColor Blue "# >>>> end show-desktop-icons.ps1   "
+Write-Host -ForegroundColor Blue "####################################"

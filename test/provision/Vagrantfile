@@ -2,11 +2,11 @@ Vagrant.configure("2") do |config|
 
     $basebox_name="basebox-win-2019"
     $basebox_hostname="win-2019"
-    $src_image_name="StefanScherer/windows_2019"
-    $src_image_version="2020.09.22"
-
+    $src_image_name="#{ENV["SRC_IMAGE_NAME"]}"
+    $src_image_version="#{ENV["SRC_IMAGE_VERSION"]}"
+  
     scriptlist = Array[]
-    scriptlist = Dir.glob("../packer/provisioners/*").sort    
+    scriptlist = Dir.glob("../../packer/provisioners/*").sort    
 
     config.vm.define "#{$basebox_name}" do |machine|
       machine.vm.box = "#{$src_image_name}"
@@ -32,11 +32,11 @@ Vagrant.configure("2") do |config|
       machine.vm.network "forwarded_port", id: "rdp",  auto_correct: true, protocol: "tcp", guest: 3389, host: 33333, host_ip: "127.0.0.1"
 
       # define synced directory
-      machine.vm.synced_folder "../packer/files-prov", "/files-prov"
+      machine.vm.synced_folder "../../packer/files-prov", "/files-prov"
       machine.vm.synced_folder "#{ENV["ProgramFiles"]}/Oracle/VirtualBox", "/guestaddition"
 
       # file provisioning
-      machine.vm.provision "file", source: "../packer/files-prov", destination: "/Users/vagrant/files-prov"
+      machine.vm.provision "file", source: "../../packer/files-prov", destination: "/Users/vagrant/files-prov"
       
       # shell provisioning
       scriptlist.each { |scriptpath|
@@ -46,26 +46,31 @@ Vagrant.configure("2") do |config|
         end        
       }
 
-      # # reboot instance
-      # machine.vm.provision :shell do |shell|
-      #   shell.name = "vm-reboot"
-      #   shell.privileged = true
-      #   shell.inline = 'echo rebooting ...'
-      #   shell.reboot = true
-      # end
+      # reboot instance
+      machine.vm.provision :shell do |shell|
+        shell.name = "vm-reboot"
+        shell.privileged = true
+        shell.inline = 'echo "rebooting ..."'
+        shell.reboot = true
+      end
 
       # set language german
       machine.vm.provision :shell do |cfg|
         cfg.name = "set-language-german"
-        cfg.path = "../packer/post-processors/set-language-german.ps1"
-      end
-      
+        cfg.path = "../../packer/post-processors/set-language-german.ps1"
+      end        
+
       # set windows version
       machine.vm.provision :shell do |cfg|
         cfg.name = "get-windows-version"
-        cfg.path = "../packer/post-processors/get-windows-version.ps1"
+        cfg.path = "../../packer/post-processors/get-windows-version.ps1"
       end        
 
+      machine.trigger.after :destroy do |trigger|
+        trigger.info = "Cleanup environment"
+        trigger.run = {path: "./cleanup-vagrant.ps1"}  
+      end
+  
     end   
 
 end
